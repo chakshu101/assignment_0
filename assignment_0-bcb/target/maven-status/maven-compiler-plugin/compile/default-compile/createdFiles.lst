@@ -1,0 +1,9 @@
+com\workfusion\chakshu\task\DataExtractionOutputTask.class
+configs\main\data-extraction-output.xml
+com\workfusion\chakshu\task\DataExtractionInputData.class
+com\workfusion\chakshu\model\ExtractionModelResult.class
+com\workfusion\chakshu\module\RepositoryModule.class
+configs\main\data-extraction-input-data.xml
+com\workfusion\chakshu\repository\ExtractionModelResultRepository.class
+com\workfusion\chakshu\task\ExampleBotTask.class
+configs\main\example-bot.xml
