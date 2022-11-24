@@ -1,4 +1,4 @@
-b3fb3eef669af45271fdfb62fe3bf835
+585f4d35bb94860e646ce1b542d06ca6
 C:\Users\Chakshu Khanduja\workfusion-workspace\assignment_0\assignment_0-bcb\target\classes
 C:\Users\Chakshu Khanduja\.m2\repository\com\workfusion\odf2\odf2-core\10.2.6.10\odf2-core-10.2.6.10.jar
 C:\Users\Chakshu Khanduja\.m2\repository\com\workfusion\odf2\odf2-compiler\10.2.6.10\odf2-compiler-10.2.6.10.jar
@@ -42,4 +42,5 @@ C:\Users\Chakshu Khanduja\.m2\repository\net\minidev\accessors-smart\1.2\accesso
 C:\Users\Chakshu Khanduja\.m2\repository\ch\qos\logback\logback-classic\1.2.3\logback-classic-1.2.3.jar
 C:\Users\Chakshu Khanduja\.m2\repository\ch\qos\logback\logback-core\1.2.3\logback-core-1.2.3.jar
 C:\Users\Chakshu Khanduja\.m2\repository\org\jsoup\jsoup\1.8.3\jsoup-1.8.3.jar
+C:\Users\Chakshu Khanduja\.m2\repository\com\google\code\gson\gson\2.8.5\gson-2.8.5.jar
 C:\Users\Chakshu Khanduja\.m2\repository\org\slf4j\slf4j-api\1.7.35\slf4j-api-1.7.35.jar

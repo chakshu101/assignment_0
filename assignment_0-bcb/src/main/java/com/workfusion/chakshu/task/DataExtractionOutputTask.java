@@ -8,16 +8,15 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.workfusion.chakshu.model.ExtractionModelResult;
+import com.google.gson.*;
+import com.workfusion.chakshu.model.ExtractionResult;
 import com.workfusion.chakshu.module.RepositoryModule;
-import com.workfusion.chakshu.repository.ExtractionModelResultRepository;
+import com.workfusion.chakshu.repository.ExtractionResultRepository;
 import com.workfusion.odf2.compiler.BotTask;
 import com.workfusion.odf2.core.cdi.Requires;
 import com.workfusion.odf2.core.task.TaskInput;
 import com.workfusion.odf2.core.task.generic.GenericTask;
+import com.workfusion.odf2.core.task.output.SingleResult;
 import com.workfusion.odf2.core.task.output.TaskRunnerOutput;
 
 @BotTask
@@ -27,24 +26,24 @@ public class DataExtractionOutputTask implements GenericTask{
 	private  Logger log;
 	private TaskInput taskInput;
 	private TaskRunnerOutput taskOutput;
-	private ExtractionModelResultRepository extractionModelResultRepository;
+	private ExtractionResultRepository extractionModelResultRepository;
 	
 	
 	@Inject
-	public DataExtractionOutputTask(Logger log, TaskInput taskInput, TaskRunnerOutput taskOutput,
-			ExtractionModelResultRepository extractionModelResultRepository) {
+	public DataExtractionOutputTask(Logger log, TaskInput taskInput,
+			ExtractionResultRepository extractionModelResultRepository) {
 		super();
 		this.log = log;
 		this.taskInput = taskInput;
-		this.taskOutput = taskOutput;
 		this.extractionModelResultRepository = extractionModelResultRepository;
 	}
 	@Override
 	public TaskRunnerOutput run() {
 		// TODO Auto-generated method stub
+		taskOutput=new SingleResult();
 		String modelResultJson= taskInput.getRequiredVariable("model_result");
 		String extractedValue= org.apache.commons.lang.StringUtils.EMPTY;
-		JsonObject jsonObject=new JsonParser().parse(modelResultJson).getAsJsonObject();  
+        JsonObject jsonObject = new JsonParser().parse(modelResultJson).getAsJsonObject();   
         Iterator<JsonElement> iterator = jsonObject.get("tags").getAsJsonArray().iterator();
         while(iterator.hasNext()) {
 
@@ -54,19 +53,14 @@ public class DataExtractionOutputTask implements GenericTask{
                            break;
             }
         }
-        ExtractionModelResult extractionModelResult = new ExtractionModelResult();
-        
-        extractionModelResult.setExtractedValue(extractedValue);
-
-        String sel=taskInput.getRequiredVariable("document");
-        Document js= Jsoup.parse(sel);
-        String goldValue=js.select("invoice_amount").attr("data_value");
-        
-        extractionModelResult.setGoldValue(goldValue);
-        
-        extractionModelResultRepository.create(extractionModelResult);
-        
-        taskOutput.setColumn("extractionResult", extractionModelResultRepository.toString());
+        ExtractionResult extractionModelResult = new ExtractionResult();
+        Document js= Jsoup.parse(taskInput.getRequiredVariable("document"));
+       String goldValue=js.select("invoice_amount").attr("data-value").replaceAll("\"\"", "\"");
+       log.info("Gold Value:"+goldValue+"  Extracted Value: "+extractedValue);
+        extractionModelResult.setExtracted_value(extractedValue);
+        extractionModelResult.setGold_value(goldValue);
+        taskOutput.setColumn("gold_value", extractionModelResult.getGold_value());
+        taskOutput.setColumn("extracted_value", extractionModelResult.getExtracted_value());
 		return taskOutput;
 	}
 	

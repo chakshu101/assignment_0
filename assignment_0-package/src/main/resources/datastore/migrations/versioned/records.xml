@@ -2,7 +2,6 @@
 
 
  
- 
     <changeSet author="ODF2 archetype" id="test_1_records_v1_0_0_001">
         <loadData commentLineStartsWith="//" encoding="UTF-8" file="usecase_config.csv" relativeToChangelogFile="true" separator="," tableName="uc_test_1_config_v1_0_0">
         </loadData>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://web-harvest.sourceforge.net/schema/1.0/config" scriptlang="groovy">
+	<loop item="dataRow">
+		<list>
+			<datastore name="ds_uc_test_1_Extraction_Result_v1_0_0">
+				select * from @this;
+			</datastore>
+		</list>
+		<body>
+		<script><![CDATA[ 
+			log.info(dataRow.get(0));
+			
+			FP = 0;
+			FN = 0;
+			TP = 0;
+			TN = 0;
+			
+			P = bjbj;
+		]]></script>
+		</body>
+	</loop>
+	
+	<script><![CDATA[ 
+	extVal = extracyed.toString();
+	gold 
+	
+	]]></script>
+	
+	<insert-datastore datastore-name="XXX" json-value-map=""></insert-datastore>
+	 <datastore name="Extraction_Result">
+	insert into @this ("Gold_value","Extracted_value") values(${goldVal},${extractedVal});
+	</datastore>
+	
+	  <datastore name="Extraction_Result">
+	insert into @this ("Gold_value","Extracted_value") values('${gold_value}','${extracted_value}');
+	</datastore>
+	
+	<datastore name="XXX">
+	insert into @this ("","") values(${},'');
+	</datastore>
+    <export include-original-data="true">
+    <single-column name="P" value="{}"></single-column>
+    <single-column name="P"></single-column>
+    <single-column name="P"></single-column>
+    </export>
+    
+    
+    <script><![CDATA[
+        insertedParamMap = new HashMap();
+        insertedParamMap.put("Extracted_Value", extracted_value.);
+        insertedParamMap.put("Gold_Value", gold_value.toString());
+        jsonValueMap = new com.google.gson.Gson().toJson(insertedParamMap);
+    ]]></script>
+
+    <insert-datastore datastore-name="Extraction_Result" json-value-map="\${jsonValueMap}" create="true"/>
+
+</config>
